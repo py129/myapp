@@ -16,14 +16,15 @@ var clearCookie = function (res, cookie_name) {
 }
 
 router.get('/*', function(req,res){
-//  if (!req.cookies.EXERCISE_API_USER_COOKIE && req.path != '/login'){
-//       res.redirect('/login');
-//  } else if (req.cookies.EXERCISE_API_USER_COOKIE && req.path == '/login'){
-//       res.redirect('/');
-//  }
     console.log(req.path)
+    // if (!req.cookies.EXERCISE_API_USER_COOKIE && req.path != '/login'){
+    //     res.redirect('/login');
+    // } else if (req.cookies.EXERCISE_API_USER_COOKIE && req.path == '/login'){
+    //     res.redirect('/');
+    // }
+    console.log('--------------------------')
     console.log(req.cookies.EXERCISE_API_USER_COOKIE)
-  res.render('index');
+    res.render('index');
 });
 
 router.post('/*',function(req,res) {

@@ -22,16 +22,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use("/",express.static(path.join(__dirname, 'dist'),{index:false}));
 app.use("/apis",express.static(path.join(__dirname, 'public')));
 
-app.get('*', function(req,res){
-    const html = fs.readFileSync(path.resolve(__dirname, './dist/index.html'), 'utf-8')
-    res.send(html);
-});
+// app.get('*', function(req,res){
+//     const html = fs.readFileSync(path.resolve(__dirname, './dist/index.html'), 'utf-8')
+//     res.send(html);
+// });
 app.use('/', index);
 // app.use('/users', users);
 
