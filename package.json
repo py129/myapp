@@ -7,10 +7,9 @@
     "build": "NODE_ENV=production roadhog build",
     "test40": "PORT=3100 NODE_ENV=test nodemon --watch server ./bin/www",
     "test41": "PORT=3100 NODE_ENV=testa nodemon --watch server ./bin/www",
-    "test": "PORT=3100 NODE_ENV=test forever start -a -l /tmp/myapp.log ./bin/www -e",
-    "testa": "PORT=3100 NODE_ENV=testa forever start -a -l /tmp/myapp.log ./bin/www -e",
-    "prep": "PORT=3100 NODE_ENV=zhitiku forever start -a -l /tmp/myapp.log ./bin/www -e",
-    "online": "PORT=3100 NODE_ENV=online forever start -a -l /tmp/myapp.log ./bin/www -e",
+    "testa": "PORT=3100 NODE_ENV=testa forever start -a -l /data/logs/myapp.log ./bin/www -e",
+    "prep": "PORT=3100 NODE_ENV=zhitiku forever start -a -l /data/logs/myapp.log ./bin/www -e",
+    "online": "PORT=3100 NODE_ENV=online forever start -a -l /data/logs/myapp.log ./bin/www -e",
     "precommit": "npm run lint"
   },
   "dependencies": {
