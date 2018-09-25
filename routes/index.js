@@ -5,45 +5,40 @@ var path = require('path');
 var router = express.Router();
 
 var request = require('../tool/request.js');
+// var initGetData=function(data, apikey){
+//     let str = '';
+//     if (data){
+//         str += '?'+ apikey;
+//         for (const key in data) {
+//             if (data.hasOwnProperty(key)) {
+//                 str += '&'+key+'='+data[key]
+//             }
+//         }
+//     } 
+//     return str
+// }
 
-/* GET home page. */
-var clearCookie = function (res, cookie_name) {
-  res.clearCookie(cookie_name,{domain:'.testa.huitong.com',path:'/'});
-  res.clearCookie(cookie_name,{domain:'.testb.huitong.com',path:'/'});
-  res.clearCookie(cookie_name,{domain:'.huitong.com',path:'/'});
-  res.clearCookie(cookie_name,{domain:'.zhitiku.cn',path:'/'});
-  res.clearCookie(cookie_name,{domain:'.willclass.com',path:'/'});
-}
-
-router.get('/*', function(req,res){
-    console.log(req.path)
-    // if (!req.cookies.EXERCISE_API_USER_COOKIE && req.path != '/login'){
-    //     res.redirect('/login');
-    // } else if (req.cookies.EXERCISE_API_USER_COOKIE && req.path == '/login'){
-    //     res.redirect('/');
-    // }
-    console.log('--------------------------')
-    console.log(req.cookies.EXERCISE_API_USER_COOKIE)
+router.get('*', function(req,res){
     res.render('index');
 });
 
 router.post('/*',function(req,res) {
-  req.setTimeout(60000);
-  if (req.path === '/api/logout') {
-      clearCookie(res, 'EXERCISE_API_USER_COOKIE');
-      res.json({});
-      return;
-  }
-  request.post(req.path,req.body,function(data){
-      if (req.path === '/exerciseapi/user/login'&&data.status === 0) {
-          clearCookie(res, 'EXERCISE_API_USER_COOKIE');
-          res.cookie(data.data['COOKIE_NAME'],data.data['COOKIE_VALUE'] ,{
-              domain:data.data['COOKIE_DOMAIN'],
-              path:'/',
-          })
-      }
-      res.json(data);
-  },req,res)
+   req.setTimeout(60000);
+   if (req.originalUrl.indexOf('iDataApi') > -1){
+        let url = req.originalUrl.replace(/\/iDataApi/,'')
+        url = 'http://120.76.205.241:8000' + url
+        let obj={
+            ...req.body,
+            apikey: 'Y7zCVOcg3GSxVYQNjR5Pb4BIOLfJkyBHaRsTP3xmdAPKQbVKNwPSoteFw0hDXpK4'
+        }
+        request.get(url, obj, function(data){
+            res.json(data);
+        },req,res)
+    } else {
+        request.post(req.path,req.body,function(data){
+            res.json(data);
+        },req,res)
+    }
 })
 
 module.exports = router;

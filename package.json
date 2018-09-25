@@ -5,10 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "build": "NODE_ENV=production roadhog build",
-    "test40": "PORT=3100 NODE_ENV=test nodemon --watch server ./bin/www",
-    "test41": "PORT=3100 NODE_ENV=testa nodemon --watch server ./bin/www",
-    "testa": "PORT=3100 NODE_ENV=testa forever start -a -l /data/logs/myapp.log ./bin/www -e",
-    "prep": "PORT=3100 NODE_ENV=zhitiku forever start -a -l /data/logs/myapp.log ./bin/www -e",
+    "local": "PORT=3100 NODE_ENV=test nodemon --watch server ./bin/www",
     "online": "PORT=3100 NODE_ENV=online forever start -a -l /data/logs/myapp.log ./bin/www -e",
     "precommit": "npm run lint"
   },

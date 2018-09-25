@@ -73,4 +73,54 @@ var post = function(url,data,callbackFunc,req,res,other){
     request.post(options,callback);
 }
 
-exports.post = post;
+var get = function(url,data,callbackFunc,req,res,other){
+
+    var requestURL = url;
+    var beginTime = Date.now();
+    logger.info("start request:",requestURL,data);
+    var options = {
+        uri: requestURL,
+        qs: data,
+        headers: {
+            'User-Agent': 'Request-Promise'
+        },
+        json: true // Automatically parses the JSON string in the response
+    };
+    function callback(error, response, body) {
+        var endTime = Date.now();
+        if(error){
+            // logger.error(JSON.stringify(error));
+            res.json({status:-1,msg:JSON.stringify(error)});
+            return
+        }else if(body,response.statusCode){
+            logger.info(requestURL,"请求",JSON.stringify(data),"响应",JSON.stringify(body),response.statusCode,"用时:"+(endTime-beginTime)+"ms");
+        }
+
+
+        if(!error && response.statusCode == 302){
+            res.json({status:-1,msg:"未登录"});
+            return;
+        }
+
+
+        if(response.statusCode != 200){
+            res.json({status:-1,msg:response.statusCode});
+            return;
+        }
+
+        if(!error && response.statusCode == 200){
+            if(!body){
+                res.render('error');
+                return;
+            }
+            if (typeof(body) == 'string'){
+                callbackFunc(JSON.parse(body));
+            } else {
+                callbackFunc(body);
+            }
+        }
+    }
+    request(options, callback);
+}
+exports.post= post;
+exports.get= get;
