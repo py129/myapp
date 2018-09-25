@@ -26,7 +26,7 @@ router.post('/*',function(req,res) {
    req.setTimeout(60000);
    if (req.originalUrl.indexOf('iDataApi') > -1){
         let url = req.originalUrl.replace(/\/iDataApi/,'')
-        url = 'http://120.76.205.241' + url
+        url = 'http://120.76.205.241:8000' + url
         let obj={
             ...req.body,
             apikey: 'Y7zCVOcg3GSxVYQNjR5Pb4BIOLfJkyBHaRsTP3xmdAPKQbVKNwPSoteFw0hDXpK4'
