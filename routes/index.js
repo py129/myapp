@@ -34,6 +34,15 @@ router.post('/*',function(req,res) {
         request.get(url, obj, function(data){
             res.json(data);
         },req,res)
+    } else if (req.originalUrl.indexOf('mTime') > -1){
+        let url = req.originalUrl.replace(/\/mTime/,'')
+        url = 'https://api-m.mtime.cn' + url
+        let obj={
+            ...req.body
+        }
+        request.get(url, obj, function(data){
+            res.json(data);
+        },req,res)
     } else {
         request.post(req.path,req.body,function(data){
             res.json(data);
