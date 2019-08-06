@@ -43,6 +43,16 @@ router.post('/*',function(req,res) {
         request.get(url, obj, function(data){
             res.json(data);
         },req,res)
+    } else if (req.originalUrl.indexOf('douban') > -1){
+        let url = req.originalUrl.replace(/\/douban/,'')
+        url = 'https://api.douban.com' + url
+        let obj={
+            ...req.body,
+            apikey: '0b2bdeda43b5688921839c8ecb20399b',
+        }
+        request.get(url, obj, function(data){
+            res.json(data);
+        },req,res)
     } else {
         request.post(req.path,req.body,function(data){
             res.json(data);
